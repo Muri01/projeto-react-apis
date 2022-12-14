@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { GlobalStyled } from "./GlobalStyled";
-import PokedexListPage from "./Pages/PokedexListPage/PokedexListPage";
-import PokedexPage from "./Pages/PokedexPage/PokedexPage";
-import PokemonDetailsPage from "./Pages/PokemonDetailsPage/PokemonDatailsPage";
 import Router from "./Router/Router";
+import {PokemonsContext} from "./Global/GlobalContext"
 
 function App() {
-  const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState([{name: "bulbasaur", id:"001"}])
 
   const getPokemons = ()=>{
     axios.get("https://pokeapi.co/api/v2/pokemon")
@@ -15,31 +13,27 @@ function App() {
       // console.log(resp.data.results[0])
       setPokemons(resp.data.results)
       // console.log(pokemons)
-      console.log("test", pokemons[0].url)
+      // console.log("test", pokemons[0].url)
     })
     .catch((err)=>{
       console.log(err)
     })
   }
 
- useEffect(()=>{
-  getPokemons()
-  // teste()
-  },[])
-
+  const context = {
+    pokemons: pokemons,
+    setPokemons: setPokemons
+  }
 //  useEffect(()=>{
-//   teste()
-//   },[pokemons])
+//     getPokemons()
+//   },[])
 
 
     return (
-      <div >
-        <GlobalStyled />
-        <Router/>
-        {/* <PokedexListPage/>
-        <PokedexPage/>
-        <PokemonDetailsPage/> */}
-      </div>
+      <PokemonsContext.Provider value={context} >
+          <GlobalStyled />
+          <Router/>
+      </PokemonsContext.Provider>
   );
 }
 
