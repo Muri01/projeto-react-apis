@@ -7,13 +7,16 @@ import {PokemonsContext} from '../../Global/GlobalContext'
 export default function PokedexListPage() {
     const context = useContext(PokemonsContext)
 
-    const {pokemons, setPokemons} = context
+    const {pokemonsInitial, setPokemonsInitial} = context
+
     return (
         <>
             {/* <Header/> */}
             <h1>Todos os pokemons</h1>
             <HomeContainer>
-                {pokemons ? (<PokeCard pokemons={pokemons}/>) : <p>CARREGANDO...</p>}
+                {pokemonsInitial ? pokemonsInitial.map((pokemon)=>{
+                    return <PokeCard pokemonInitital={pokemon} key={pokemon.name} />
+                }) : <p>CARREGANDO</p>}
             </HomeContainer>
         </>
   );
