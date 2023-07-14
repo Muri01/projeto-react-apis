@@ -11,8 +11,8 @@ export default function Header() {
    <HeaderContainer>
      <a onClick={()=>{goToBack(navigate)}}>Voltar</a>
     <img src={Pokelogo} />
-    <button onClick={()=>{goToPokedex(navigate)}}>Pokedex</button>
     <button onClick={()=>{goToPokemonList(navigate)}}>pokemons</button>
+    <button onClick={()=>{goToPokedex(navigate)}}>Pokedex</button>
    </HeaderContainer>
   );
 }

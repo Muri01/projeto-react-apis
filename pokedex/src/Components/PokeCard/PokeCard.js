@@ -1,51 +1,60 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { goToPokemonDatails } from '../../Router/coodinator';
-import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeInfoContainer, PokeTypesContainer } from './PokecardStyle';
+import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeDetailsContainer, PokeInfoContainer, PokeTypesContainer, ADetails, ButtonDetails } from './PokecardStyle';
 import {PokemonsContext} from '../../Global/GlobalContext'
 import axios from 'axios';
-import { URL_BASE } from '../../constants/contanst';
 
 export default function PokeCard(props) {
   const id = 1
   const navigate = useNavigate()
-  const params = useParams()
   const context = useContext(PokemonsContext)
+  const {pokedex, setPokedex} = context
 
-  const [pokemon, setPokemon] = useState({})
+  const [pokemonList, setPokemonList] = useState({})
 
+  // const RequestPokemonListDetail = ()=>{}
+
+  // const RequestPokedexListDetail = ()=>{}
+  
   useEffect(()=> {
     axios
       .get(props.pokemonInitital.url)
       .then((resp)=>{
         // console.log(resp.data)
-        setPokemon(resp.data)
+        setPokemonList(resp.data)
         // console.log(pokemon.sprites.other[`official-artwork`].front_default)
       })
       .catch((err)=>{
         console.log(err)
       })
-  },[])
-  console.log(pokemon.spri)
+  },[props, pokedex])
+  console.log(pokemonList.sprites)
 
  return (
    <PokeCardContainer>
      <PokeInfoContainer>
-       <PId>#{pokemon && pokemon.id}</PId>
-       <h1>{pokemon && pokemon.name}</h1>
-       <PokeTypesContainer>
-          {pokemon.types && pokemon.types.map((type)=>{
-            return <span>{type.type.name} - </span>
-          })}
-        </PokeTypesContainer>
-       </PokeInfoContainer>
-          <ImagePokemon src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/251.png"/>
-          {/* <img src={pokemon.sprites.other[`official-artwork`].front_default}/> */}
-     <PokeButtonContainer>
-      <a href=""><strong>Capturar</strong></a>
-      <button onClick={()=>{goToPokemonDatails(navigate, id)}}>Detalhes</button>
-     </PokeButtonContainer>
+        <PokeDetailsContainer>
+          <PId>#{pokemonList && pokemonList.id}</PId>
+          <h1>{pokemonList && pokemonList.name}</h1>
+          <PokeTypesContainer>
+              {pokemonList.types && pokemonList.types.map((type)=>{
+                return <span>{type.type.name} </span>
+              })}
+          </PokeTypesContainer>
+        </PokeDetailsContainer>
 
+       {pokemonList === undefined && <ImagePokemon src={pokemonList.sprites.other.home.front_default}/>}
+
+
+
+        {/* <ImagePokemon src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/9.png"/> */}
+      </PokeInfoContainer>
+       
+     <PokeButtonContainer>
+      <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, id)}}>Detalhes</ADetails>
+      <ButtonDetails onClick={()=>{setPokedex([...pokedex, props.pokemonInitital])}}>Capturar</ButtonDetails>
+     </PokeButtonContainer>
    </PokeCardContainer>
   );
 }
