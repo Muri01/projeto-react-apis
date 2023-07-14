@@ -15,17 +15,13 @@ function App() {
     pokedex,
     setPokedex
   }
-//  useEffect(()=>{
-//     getPokemons()
-//   },[])
 
-
-    return (
-      <PokemonsContext.Provider value={context} >
-          <GlobalStyled />
-          <Router/>
-      </PokemonsContext.Provider>
-  );
+  return (
+    <PokemonsContext.Provider value={context} >
+        <GlobalStyled />
+        <Router/>
+    </PokemonsContext.Provider>
+);
 }
 
 export default App;

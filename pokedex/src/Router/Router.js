@@ -13,7 +13,7 @@ export default function Router() {
             <Routes>
                 <Route index path='/' element={<PokedexListPage/>}/>
                 <Route path ="/pokedex" element={<PokedexPage/>}/>
-                <Route path ="/details" element={<PokemonDetailsPage/>}/>
+                <Route path ="/details/:id" element={<PokemonDetailsPage/>}/>
             </Routes>
         </BrowserRouter>
     </>

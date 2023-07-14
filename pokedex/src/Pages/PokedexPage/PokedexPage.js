@@ -14,7 +14,7 @@ export default function PokedexPage() {
     <h1>Meus Pokemons</h1>
     <PokedexContainer>
       {pokedex ? pokedex.map((pokemon)=>{
-        return <PokeCard pokemonInitital={pokemon} key={pokemon.name} />
+        return <PokeCard key={pokemon.name} pokemonInitital={pokemon} />
       }) : <p>CARREGANDO</p>}
     </PokedexContainer>
    </>

@@ -7,7 +7,7 @@ export const goToPokemonList = (navigate) =>{
   }
 
 export const goToPokemonDatails = (navigate, id) =>{
-      navigate(`/details/`)
+      navigate(`/details/${id}`)
   }
 
 export const goToBack = (navigate)=>{

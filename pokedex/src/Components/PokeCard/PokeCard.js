@@ -6,19 +6,31 @@ import {PokemonsContext} from '../../Global/GlobalContext'
 import axios from 'axios';
 
 export default function PokeCard(props) {
-  const id = 1
   const navigate = useNavigate()
   const context = useContext(PokemonsContext)
   const {pokedex, setPokedex} = context
 
-  const [pokemonList, setPokemonList] = useState({})
-
-  // const RequestPokemonListDetail = ()=>{}
-
-  // const RequestPokedexListDetail = ()=>{}
+  const pokemonMock = {
+    id: "",
+    name: "",
+    types: [{type: {name: "", url:""}}, {type: {name: "", url:""}}],
+    sprites: {
+      other:{
+        home:{
+          // front_default:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"
+          front_default:"https://media.tenor.com/8sTMqGWjYAQAAAAC/ball-pokemon.gif"
+        }
+      }
+    }
+  }
+  const [pokemonList, setPokemonList] = useState(pokemonMock)
   
   useEffect(()=> {
-    axios
+    RequestPokemonListDetail()
+  },[])
+
+  const RequestPokemonListDetail = async ()=>{
+    await axios
       .get(props.pokemonInitital.url)
       .then((resp)=>{
         // console.log(resp.data)
@@ -28,8 +40,7 @@ export default function PokeCard(props) {
       .catch((err)=>{
         console.log(err)
       })
-  },[props, pokedex])
-  console.log(pokemonList.sprites)
+  }
 
  return (
    <PokeCardContainer>
@@ -44,15 +55,11 @@ export default function PokeCard(props) {
           </PokeTypesContainer>
         </PokeDetailsContainer>
 
-       {pokemonList === undefined && <ImagePokemon src={pokemonList.sprites.other.home.front_default}/>}
-
-
-
-        {/* <ImagePokemon src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/9.png"/> */}
+       <ImagePokemon src={pokemonList.sprites.other.home.front_default}/>
       </PokeInfoContainer>
        
      <PokeButtonContainer>
-      <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, id)}}>Detalhes</ADetails>
+      <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, pokemonList.id)}}>Detalhes</ADetails>
       <ButtonDetails onClick={()=>{setPokedex([...pokedex, props.pokemonInitital])}}>Capturar</ButtonDetails>
      </PokeButtonContainer>
    </PokeCardContainer>
