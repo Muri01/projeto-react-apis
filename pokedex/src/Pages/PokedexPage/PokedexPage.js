@@ -13,9 +13,13 @@ export default function PokedexPage() {
    <>
     <h1>Meus Pokemons</h1>
     <PokedexContainer>
-      {pokedex ? pokedex.map((pokemon)=>{
+      {pokedex.length ? pokedex
+        //TENTAR ORDENAR!!
+        // .sort((a, b) => Number(a.url[a.url.length - 2]) - Number(b.url[b.url.length - 2])) 
+        .map((pokemon)=>{
+        console.log(pokemon)
         return <PokeCard key={pokemon.name} pokemonInitital={pokemon} />
-      }) : <p>CARREGANDO</p>}
+      }) : <p>Pokedex Vazia</p>}
     </PokedexContainer>
    </>
   );

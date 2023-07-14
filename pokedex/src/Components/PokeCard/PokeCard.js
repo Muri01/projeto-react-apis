@@ -1,45 +1,47 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { goToPokemonDatails } from '../../Router/coodinator';
 import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeDetailsContainer, PokeInfoContainer, PokeTypesContainer, ADetails, ButtonDetails } from './PokecardStyle';
 import {PokemonsContext} from '../../Global/GlobalContext'
 import axios from 'axios';
+import { pokemonMock } from '../../constants/contanst';
 
 export default function PokeCard(props) {
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log(location.pathname)
+
   const context = useContext(PokemonsContext)
   const {pokedex, setPokedex} = context
 
-  const pokemonMock = {
-    id: "",
-    name: "",
-    types: [{type: {name: "", url:""}}, {type: {name: "", url:""}}],
-    sprites: {
-      other:{
-        home:{
-          // front_default:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"
-          front_default:"https://media.tenor.com/8sTMqGWjYAQAAAAC/ball-pokemon.gif"
-        }
-      }
-    }
-  }
   const [pokemonList, setPokemonList] = useState(pokemonMock)
   
   useEffect(()=> {
     RequestPokemonListDetail()
-  },[])
+  }, [])
 
   const RequestPokemonListDetail = async ()=>{
     await axios
       .get(props.pokemonInitital.url)
       .then((resp)=>{
-        // console.log(resp.data)
         setPokemonList(resp.data)
-        // console.log(pokemon.sprites.other[`official-artwork`].front_default)
       })
       .catch((err)=>{
         console.log(err)
       })
+  }
+
+  const addPokemonFromPokedex = (pokemonToAdd)=>{
+    if (!pokedex.includes(pokemonToAdd)) {
+      setPokedex([...pokedex, pokemonToAdd])
+      //MENSAGEM DE POKEMON FOI CAPTURADO
+    }
+    // MENSAGEM DE ERRO
+  }
+
+  const removePokemonFromPokedex = (pokemonToRemove)=>{
+    const newPokedex = pokedex.filter(pokemon => pokemon.name !== pokemonToRemove.name);
+    setPokedex(newPokedex)
   }
 
  return (
@@ -60,7 +62,11 @@ export default function PokeCard(props) {
        
      <PokeButtonContainer>
       <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, pokemonList.id)}}>Detalhes</ADetails>
-      <ButtonDetails onClick={()=>{setPokedex([...pokedex, props.pokemonInitital])}}>Capturar</ButtonDetails>
+
+      {location.pathname === "/" ? 
+        <ButtonDetails onClick={()=>{addPokemonFromPokedex(props.pokemonInitital)}}>Capturar</ButtonDetails> : 
+        <ButtonDetails style={{backgroundColor: '#FF6262', color: "#FFFFFF"}} onClick={()=>{removePokemonFromPokedex(props.pokemonInitital)}}>Excluir</ButtonDetails> 
+      }
      </PokeButtonContainer>
    </PokeCardContainer>
   );
