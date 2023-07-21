@@ -8,13 +8,15 @@ import { goToBack, goToPokedex, goToPokemonList} from '../../Router/coodinator';
 export default function Header() {
   const navigate = useNavigate()
   const location = useLocation()
+  console.log(location.pathname)
 
  return (
    <HeaderContainer>
-     <a onClick={()=>{goToBack(navigate)}}>Voltar</a>
+    {location.pathname === "/" || <a onClick={()=>{goToPokemonList(navigate)}}>Voltar</a>}
+    {/* <button onClick={()=>{goToPokemonList(navigate)}}>pokemons</button>  */}
     <img src={Pokelogo} />
-    <button onClick={()=>{goToPokemonList(navigate)}}>pokemons</button>
-    <button onClick={()=>{goToPokedex(navigate)}}>Pokedex</button>
+    {location.pathname === "/" && <button onClick={()=>{goToPokedex(navigate)}}>Pokedex</button> 
+    }
    </HeaderContainer>
   );
 }
