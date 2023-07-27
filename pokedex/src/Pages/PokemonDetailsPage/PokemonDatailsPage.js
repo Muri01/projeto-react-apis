@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DetailsContainer, ImgBoxFront, ImgBoxBack, BaseStatus, PokemonData,Moves, ImagePokemon  } from './PokemonDatailsStyles';
 import Bulbasaur from '../../images/Bulbasaur.png'
 import { PokemonDetailsMock } from '../../constants/contanst';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { PokemonsContext } from '../../Global/GlobalContext';
 
 export default function PokemonDetailsPage() {
 
   const [PokemonDetails, setPokemonDetails] = useState(PokemonDetailsMock)
   const location = useLocation()
+
+  const context = useContext(PokemonsContext)
+  const {pokedex} = context
+
+  console.log(pokedex)
 
   useEffect(()=>{
     RequestPokemonDetails()
@@ -27,8 +33,8 @@ export default function PokemonDetailsPage() {
     return idPokemon
   }
 
-  const RequestPokemonDetails = async () => {
-    await axios
+  const RequestPokemonDetails =  () => {
+     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${getIdByURL()}`)
       .then((resp)=>{
         setPokemonDetails(resp.data)

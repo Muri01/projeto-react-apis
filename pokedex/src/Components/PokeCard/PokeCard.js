@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { goToPokemonDatails } from '../../Router/coodinator';
 import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeDetailsContainer, PokeInfoContainer, PokeTypesContainer, ADetails, ButtonDetails } from './PokecardStyle';
 import {PokemonsContext} from '../../Global/GlobalContext'
@@ -8,8 +8,6 @@ import { pokemonMock } from '../../constants/contanst';
 
 export default function PokeCard(props) {
   const navigate = useNavigate()
-  const location = useLocation()
-  console.log(location.pathname)
 
   const context = useContext(PokemonsContext)
   const {pokedex, setPokedex} = context
@@ -31,18 +29,55 @@ export default function PokeCard(props) {
       })
   }
 
+  const getIdByURLAPI = (pokemon)=>{
+    let idPokemon
+    if(pokemon.url.length === 36){
+      idPokemon = pokemon.url[pokemon.url.length - 2]
+    } else if(pokemon.url.length > 36){
+      const lastNumber = pokemon.url[pokemon.url.length - 2]
+      idPokemon = pokemon.url[pokemon.url.length - 3] + lastNumber
+    }
+    return idPokemon
+  }
+
   const addPokemonFromPokedex = (pokemonToAdd)=>{
     if (!pokedex.includes(pokemonToAdd)) {
+
+      const idPokemon = getIdByURLAPI(pokemonToAdd)
+      //Guardar no local Storage
+      const pokedexLocalString = localStorage.getItem("PokemonsCapturados");
+      const pokedexLocal = JSON.parse(pokedexLocalString)
+      
+      if(!pokedexLocal){
+        const pokemonLocal = JSON.stringify([idPokemon])
+        localStorage.setItem("PokemonsCapturados", pokemonLocal);
+      } else{
+        pokedexLocal.push(idPokemon)
+        const newPokedex = JSON.stringify(pokedexLocal)
+        localStorage.setItem("PokemonsCapturados", newPokedex);
+      }
+
       setPokedex([...pokedex, pokemonToAdd])
-      //MENSAGEM DE POKEMON FOI CAPTURADO
+      alert("POKEMON CAPTURADO")
     }
-    // MENSAGEM DE ERRO
+    // INSERIR MENSAGEM DE ERRO, POKEMON JA FOI CAPTURADO
+    // alert("Pokemons já foi capturado")
   }
 
   const removePokemonFromPokedex = (pokemonToRemove)=>{
+
+    const idPokemon = getIdByURLAPI(pokemonToRemove)
+    const pokedexLocalString = localStorage.getItem("PokemonsCapturados");
+    const pokedexLocal = JSON.parse(pokedexLocalString)
+    
+    if(pokedexLocal){
+      const newPokedex = JSON.stringify(pokedexLocal.filter(pokemon => pokemon !== idPokemon))
+      localStorage.setItem("PokemonsCapturados", newPokedex);
+    }
     const newPokedex = pokedex.filter(pokemon => pokemon.name !== pokemonToRemove.name);
     setPokedex(newPokedex)
   }
+
 
  return (
    <PokeCardContainer>
@@ -63,7 +98,7 @@ export default function PokeCard(props) {
      <PokeButtonContainer>
       <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, pokemonList.id)}}>Detalhes</ADetails>
 
-      {location.pathname === "/" ? 
+      {!pokedex.includes(props.pokemonInitital) ? 
         <ButtonDetails onClick={()=>{addPokemonFromPokedex(props.pokemonInitital)}}>Capturar</ButtonDetails> : 
         <ButtonDetails style={{backgroundColor: '#FF6262', color: "#FFFFFF"}} onClick={()=>{removePokemonFromPokedex(props.pokemonInitital)}}>Excluir</ButtonDetails> 
       }
