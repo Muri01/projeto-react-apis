@@ -4,6 +4,6 @@ export const GlobalStyled = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* background: #605c5c; */
+    font-family: 'Inter', sans-serif;
   }
 `;

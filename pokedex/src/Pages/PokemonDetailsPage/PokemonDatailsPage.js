@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { DetailsContainer, ImgBoxFront, ImgBoxBack, BaseStatus, PokemonData,Moves, ImagePokemon  } from './PokemonDatailsStyles';
+import { DetailsPoge, DetailsContainer, ImgBoxFront, ImgBoxBack, BaseStatus, PokemonData,Moves, ImagePokemon  } from './PokemonDatailsStyles';
 import Bulbasaur from '../../images/Bulbasaur.png'
 import { PokemonDetailsMock } from '../../constants/contanst';
 import { useLocation } from 'react-router-dom';
@@ -55,7 +55,7 @@ export default function PokemonDetailsPage() {
 
 
  return (
-   <>
+   <DetailsPoge>
    <h1>Detalhes do pokemon</h1>
     <DetailsContainer>
       <ImgBoxFront>
@@ -87,6 +87,6 @@ export default function PokemonDetailsPage() {
         <img src={PokemonDetails.sprites.other.home.front_default}/>
       </ImagePokemon>
     </DetailsContainer>
-   </>
+   </DetailsPoge>
   );
 }

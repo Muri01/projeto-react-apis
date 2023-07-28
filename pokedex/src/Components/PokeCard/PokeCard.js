@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { goToPokemonDatails } from '../../Router/coodinator';
-import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeDetailsContainer, PokeInfoContainer, PokeTypesContainer, ADetails, ButtonDetails } from './PokecardStyle';
+import { ImagePokemon, PId, PokeButtonContainer, PokeCardContainer, PokeDetailsContainer, PokeInfoContainer, PokeTypesContainer, ADetails, ButtonDetails, PokeImagemContaner, ImagePokebola, Name } from './PokecardStyle';
 import {PokemonsContext} from '../../Global/GlobalContext'
 import axios from 'axios';
 import { pokemonMock } from '../../constants/contanst';
+import pokebola from '../../assets/poke-backgroud-card.png'
+import TypesCard from '../Types.js/TypesCard';
 
 export default function PokeCard(props) {
   const navigate = useNavigate()
@@ -14,7 +16,7 @@ export default function PokeCard(props) {
 
   const [pokemonList, setPokemonList] = useState(pokemonMock)
   
-  useEffect(()=> {
+  useEffect( ()=> {
     RequestPokemonListDetail()
   }, [])
 
@@ -78,28 +80,36 @@ export default function PokeCard(props) {
     setPokedex(newPokedex)
   }
 
+  const ToBeUpeerCase = (string) => {
+    const newString = pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)
+    return newString
+  }
+  console.log(pokemonList)
 
  return (
    <PokeCardContainer>
      <PokeInfoContainer>
-        <PokeDetailsContainer>
-          <PId>#{pokemonList && pokemonList.id}</PId>
-          <h1>{pokemonList && pokemonList.name}</h1>
+          <PId><b>#0{pokemonList && pokemonList.id}</b></PId>
+          {/* <Name>{pokemonList.name ? (pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)) : "..."} </Name> */}
+          <Name>{pokemonList.name} </Name>
           <PokeTypesContainer>
               {pokemonList.types && pokemonList.types.map((type)=>{
-                return <span>{type.type.name} </span>
+                return <TypesCard name={type.type.name}/> 
               })}
           </PokeTypesContainer>
-        </PokeDetailsContainer>
 
-       <ImagePokemon src={pokemonList.sprites.other.home.front_default}/>
-      </PokeInfoContainer>
+     </PokeInfoContainer>
+
+     <PokeImagemContaner>
+        <ImagePokebola src={pokebola} alt="backgroud de pokebola"/>
+        <ImagePokemon src={pokemonMock.sprites.other.home.front_default && pokemonList.sprites.other["official-artwork"]?.front_default}/>
+     </PokeImagemContaner>
        
      <PokeButtonContainer>
-      <ADetails style={{ fontSize: 10}} href="" onClick={()=>{goToPokemonDatails(navigate, pokemonList.id)}}>Detalhes</ADetails>
+      <ADetails href="" onClick={()=>{goToPokemonDatails(navigate, pokemonList.id)}}>Detalhes</ADetails>
 
       {!pokedex.includes(props.pokemonInitital) ? 
-        <ButtonDetails onClick={()=>{addPokemonFromPokedex(props.pokemonInitital)}}>Capturar</ButtonDetails> : 
+        <ButtonDetails onClick={()=>{addPokemonFromPokedex(props.pokemonInitital)}}>Capturar!</ButtonDetails> : 
         <ButtonDetails style={{backgroundColor: '#FF6262', color: "#FFFFFF"}} onClick={()=>{removePokemonFromPokedex(props.pokemonInitital)}}>Excluir</ButtonDetails> 
       }
      </PokeButtonContainer>

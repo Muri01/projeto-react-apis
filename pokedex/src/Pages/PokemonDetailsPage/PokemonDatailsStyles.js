@@ -1,5 +1,8 @@
 import styled from 'styled-components/';
 
+export const DetailsPoge = styled.div`
+    background: #605c5c;;
+`
 export const DetailsContainer = styled.main`
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
