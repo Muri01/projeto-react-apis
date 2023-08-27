@@ -7,6 +7,7 @@ import axios from 'axios';
 import { pokemonMock } from '../../constants/contanst';
 import pokebola from '../../assets/poke-backgroud-card.png'
 import TypesCard from '../Types.js/TypesCard';
+import { returnTypes } from '../../utils/returnTypes';
 
 export default function PokeCard(props) {
   const navigate = useNavigate()
@@ -86,7 +87,7 @@ export default function PokeCard(props) {
   }
 
  return (
-   <PokeCardContainer>
+   <PokeCardContainer color={returnTypes(pokemonList.types[0].type.name)}>
      <PokeInfoContainer>
           <PId><b>#0{pokemonList && pokemonList.id}</b></PId>
           {/* <Name>{pokemonList.name ? (pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)) : "..."} </Name> */}

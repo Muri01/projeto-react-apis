@@ -9,7 +9,7 @@ export const PokeCardContainer = styled.div`
     margin: 26px 10px;
     width: 440px;
     height: 210px;
-    background: green;
+    background:${(props)=> props.color} ;
 `;
 
 export const PokeInfoContainer = styled.section`
@@ -30,7 +30,6 @@ export const Name = styled.h1`
 export const PokeTypesContainer = styled.section`
 display: flex;
     padding: 10px;
-    background: blue;
 `
 
 export const PokeButtonContainer = styled.section`

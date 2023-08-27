@@ -21,8 +21,6 @@ import  Psychic from "../../assets/psychic.png"
 import  Ice from "../../assets/ice.png"
 import  Ground from "../../assets/ground.png"
 
-
-
 export default function TypesCard(props) {
  
   const [typeCard, setTypeCard]=useState("")
@@ -32,68 +30,84 @@ export default function TypesCard(props) {
     returnTypes(props.name)
   },[props])
 
-  const returnTypes = (type)=>{    
+  const returnTypes = (type)=>{
     switch (type){
         case "poison":
             setTypeCard(Poison)
-            setTypeColor("#AD61AE")            
+            setTypeColor("#AD61AE")
+            return "#AD61AE"
         case "grass":
             setTypeCard(Grass)
-            setTypeColor("#70B873")            
+            setTypeColor("#70B873")
+            return "#AD61AE"
         case "fire":
             setTypeCard(Fire)
-            setTypeColor("#F44900")            
+            setTypeColor("#F44900")
+            return "#AD61AE"
         case "flying":
             setTypeCard(Flying)
-            setTypeColor("#6892B0")            
+            setTypeColor("#6892B0")
+            return "#AD61AE"
         case "water":
             setTypeCard(Water)
-            setTypeColor("#33A4F5")            
+            setTypeColor("#33A4F5")
+            return "#AD61AE"
         case "bug":
             setTypeCard(Bug)
-            setTypeColor("#316520")            
+            setTypeColor("#316520")
+            return "#AD61AE"
         case "normal":
             setTypeCard(Normal)
-            setTypeColor("#8A8A8A")            
+            setTypeColor("#8A8A8A")
+            return "#AD61AE"
         case "dark":
             setTypeCard(Dark)
-            setTypeColor("#5C5365")            
+            setTypeColor("#5C5365")
+            return "#AD61AE"
         case "dragon":
             setTypeCard(Dragon)
-            setTypeColor("#0A6CBF")            
+            setTypeColor("#0A6CBF")
+            return "#AD61AE"
         case "electric":
             setTypeCard(Electric)
-            setTypeColor("#F4D23B")            
+            setTypeColor("#F4D23B")
+            return "#AD61AE"
         case "fairy":
             setTypeCard(Fairy)
-            setTypeColor("#EC8FE6")            
+            setTypeColor("#EC8FE6")
+            return "#AD61AE"
         case "fighting":
             setTypeCard(Fighting)
-            setTypeColor("#CE4069")            
+            setTypeColor("#CE4069")
+            return "#AD61AE"
         case "ghost":
             setTypeCard(Ghost)
-            setTypeColor("#5269AC")            
+            setTypeColor("#5269AC")
+            return "#AD61AE"
         case "ground":
             setTypeCard(Ground)
-            setTypeColor("#D97745")            
+            setTypeColor("#D97745")
+            return "#AD61AE"
         case "ice":
             setTypeCard(Ice)
-            setTypeColor("#74CEC0")            
+            setTypeColor("#74CEC0")
+            return "#AD61AE"
         case "psychic":
             setTypeCard(Psychic)
-            setTypeColor("#F67176")            
+            setTypeColor("#F67176")
+            return "#AD61AE"
         case "rock":
             setTypeCard(Rock)
-            setTypeColor("#C7B78B")            
+            setTypeColor("#C7B78B")
+            return "#AD61AE"
         case "steel":
             setTypeCard(Steel)
             setTypeColor("#BBBBBB")
-            
+            return "#AD61AE"
         default:
-      return "#AD61AEEEEEEEE";
+      return "#BBBBBB";
     }
   }
-
 
  return (
   <PokeCardContainer typeColor={typeColor}>
