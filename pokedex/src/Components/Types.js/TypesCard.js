@@ -26,74 +26,77 @@ import  Ground from "../../assets/ground.png"
 export default function TypesCard(props) {
  
   const [typeCard, setTypeCard]=useState("")
+  const [typeColor, setTypeColor]=useState("black")
 
   useEffect(()=>{
     returnTypes(props.name)
   },[props])
 
-  const returnTypes = (type)=>{
+  const returnTypes = (type)=>{    
     switch (type){
         case "poison":
             setTypeCard(Poison)
-            return typeCard
+            setTypeColor("#AD61AE")            
         case "grass":
             setTypeCard(Grass)
-            return typeCard
+            setTypeColor("#70B873")            
         case "fire":
             setTypeCard(Fire)
-            return typeCard
+            setTypeColor("#F44900")            
         case "flying":
             setTypeCard(Flying)
-            return typeCard
+            setTypeColor("#6892B0")            
         case "water":
             setTypeCard(Water)
-            return typeCard
+            setTypeColor("#33A4F5")            
         case "bug":
             setTypeCard(Bug)
-            return typeCard
+            setTypeColor("#316520")            
         case "normal":
             setTypeCard(Normal)
-            return typeCard
+            setTypeColor("#8A8A8A")            
         case "dark":
             setTypeCard(Dark)
-            return typeCard
+            setTypeColor("#5C5365")            
         case "dragon":
             setTypeCard(Dragon)
-            return typeCard
+            setTypeColor("#0A6CBF")            
         case "electric":
             setTypeCard(Electric)
-            return typeCard
+            setTypeColor("#F4D23B")            
         case "fairy":
             setTypeCard(Fairy)
-            return typeCard
+            setTypeColor("#EC8FE6")            
         case "fighting":
             setTypeCard(Fighting)
-            return typeCard
+            setTypeColor("#CE4069")            
         case "ghost":
             setTypeCard(Ghost)
-            return typeCard
+            setTypeColor("#5269AC")            
         case "ground":
             setTypeCard(Ground)
-            return typeCard
+            setTypeColor("#D97745")            
         case "ice":
             setTypeCard(Ice)
-            return typeCard
+            setTypeColor("#74CEC0")            
         case "psychic":
             setTypeCard(Psychic)
-            return typeCard
+            setTypeColor("#F67176")            
         case "rock":
             setTypeCard(Rock)
-            return typeCard
+            setTypeColor("#C7B78B")            
         case "steel":
             setTypeCard(Steel)
-            return typeCard
+            setTypeColor("#BBBBBB")
+            
         default:
-      return Ghost;
+      return "#AD61AEEEEEEEE";
     }
   }
 
+
  return (
-  <PokeCardContainer colorContainer={props.name}>
+  <PokeCardContainer typeColor={typeColor}>
     <ImageType src={ typeCard} alt={`imagem do logotipo: ${typeCard}`}/>
     <PId><b>{props.name && (props.name[0].toUpperCase() +  props.name.substring(1))}</b></PId>
   </PokeCardContainer>

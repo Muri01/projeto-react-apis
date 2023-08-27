@@ -9,7 +9,7 @@ export const PokeCardContainer = styled.div`
     margin: 0 3px;
     width: 91px;
     height: 31px;
-    /* background: ; */
+    background:${(props)=> props.typeColor} ;
 `;
 
 export const PId = styled.p`
