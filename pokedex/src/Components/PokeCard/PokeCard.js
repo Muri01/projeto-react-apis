@@ -84,7 +84,6 @@ export default function PokeCard(props) {
     const newString = pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)
     return newString
   }
-  console.log(pokemonList)
 
  return (
    <PokeCardContainer>

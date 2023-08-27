@@ -24,3 +24,7 @@ export const ImagePokebola = styled.img`
     bottom: -79px;
     left: 180px; */
 `
+export const ImageType = styled.img`
+    height: 20px;
+    margin: 3px;
+`
