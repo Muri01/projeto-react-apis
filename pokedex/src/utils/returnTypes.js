@@ -18,44 +18,44 @@ import  Ice from "../assets/ice.png"
 import  Ground from "../assets/ground.png"
 
 export const returnTypes = (type)=>{
-    console.log(type)
+    // console.log(type)
     switch (type){
         case "poison":
-            return "#AD61AE"
+            return {color:"#AD61AE", image: Poison}
         case "grass":
-            return "#70B873"
+            return {color:"#70B873", image: Grass}
         case "fire":
-            return "#F44900"
+            return {color:"#F44900", image: Fire}
         case "flying":
-            return "#6892B0"
+            return {color:"#6892B0", image: Flying}
         case "water":
-            return "#33A4F5"
+            return {color:"#33A4F5", image: Water}
         case "bug":
-            return "#316520"
+            return {color:"#316520", image: Bug}
         case "normal":
-            return "#8A8A8A"
+            return {color:"#8A8A8A", image: Normal}
         case "dark":
-            return "#5C5365"
+            return {color:"#5C5365", image: Dark}
         case "dragon":
-            return "#0A6CBF"
+            return {color:"#0A6CBF", image: Dragon}
         case "electric":
-            return "#F4D23B"
+            return {color:"#F4D23B", image: Electric}
         case "fairy":
-            return "#EC8FE6"
+            return {color:"#EC8FE6", image: Fairy}
         case "fighting":
-            return "#CE4069"
+            return {color:"#CE4069", image: Fighting}
         case "ghost":
-            return "#5269AC"
+            return {color:"#5269AC", image: Ghost}
         case "ground":
-            return "#D97745"
+            return {color:"#D97745", image: Ground}
         case "ice":
-            return "#74CEC0"
+            return {color:"#74CEC0", image: Ice}
         case "psychic":
-            return "#F67176"
+            return {color:"#F67176", image: Psychic}
         case "rock":
-            return "#C7B78B"
+            return {color:"#C7B78B", image: Rock}
         case "steel":
-            return "#BBBBBB"
+            return {color:"#BBBBBB", image: Steel}
         default:
       return "#BBBBBB";
     }

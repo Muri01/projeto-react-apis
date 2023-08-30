@@ -16,7 +16,7 @@ export default function PokeCard(props) {
   const {pokedex, setPokedex} = context
 
   const [pokemonList, setPokemonList] = useState(pokemonMock)
-  
+
   useEffect( ()=> {
     RequestPokemonListDetail()
   }, [])
@@ -85,9 +85,10 @@ export default function PokeCard(props) {
     const newString = pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)
     return newString
   }
+  console.log(pokemonList)
 
  return (
-   <PokeCardContainer color={returnTypes(pokemonList.types[0].type.name)}>
+   <PokeCardContainer color={returnTypes(pokemonList.types[0].type.name).color}>
      <PokeInfoContainer>
           <PId><b>#0{pokemonList && pokemonList.id}</b></PId>
           {/* <Name>{pokemonList.name ? (pokemonList.name[0].toUpperCase() + pokemonList.nome.substring(1)) : "..."} </Name> */}
