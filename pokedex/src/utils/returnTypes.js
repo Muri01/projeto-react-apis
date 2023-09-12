@@ -23,17 +23,17 @@ export const returnTypes = (type)=>{
         case "poison":
             return {color:"#AD61AE", image: Poison}
         case "grass":
-            return {color:"#70B873", image: Grass}
+            return {color:"#729F92", image: Grass}
         case "fire":
-            return {color:"#F44900", image: Fire}
+            return {color:"#EAAB7D", image: Fire}
         case "flying":
             return {color:"#6892B0", image: Flying}
         case "water":
-            return {color:"#33A4F5", image: Water}
+            return {color:"#71C3FF", image: Water}
         case "bug":
-            return {color:"#316520", image: Bug}
+            return {color:"#76A866", image: Bug}
         case "normal":
-            return {color:"#8A8A8A", image: Normal}
+            return {color:"#BF9762", image: Normal}
         case "dark":
             return {color:"#5C5365", image: Dark}
         case "dragon":
