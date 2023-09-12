@@ -6,9 +6,18 @@ import {useRequest} from './hook/useRequest'
 
 function App() {
 
+  const pokedexLocalString = localStorage.getItem("PokemonsCapturados");
+  const pokedexLocal = JSON.parse(pokedexLocalString)
+
+  // console.log(pokedexLocal)
+  
   const [pokemonsInitial, setPokemonsInitial] = useRequest([])
   const [pokedex, setPokedex] = useState([])
-  
+  // console.log(pokemonsInitial)
+  // console.log(pokedex)
+
+
+
   const context = {
     pokemonsInitial,
     setPokemonsInitial,

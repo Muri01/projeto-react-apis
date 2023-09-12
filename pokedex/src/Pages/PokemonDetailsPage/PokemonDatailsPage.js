@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { DetailsContainer, ImgBoxFront, ImgBoxBack, BaseStatus, PokemonData,Moves, ImagePokemon  } from './PokemonDatailsStyles';
-import Bulbasaur from '../../images/Bulbasaur.png'
+import React, { useContext, useEffect, useState } from 'react';
+import { TitleDetail, DetailsPage, DetailsContainer, ImgBox, ImgDetail, BaseStatus, PokemonData, ImagePokebola, Moves,ImagePokemonBig, ImagePokemonBox, ImagePokemons  } from './PokemonDatailsStyles';
 import { PokemonDetailsMock } from '../../constants/contanst';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { PokemonsContext } from '../../Global/GlobalContext';
+import { returnTypes } from '../../utils/returnTypes';
+import TypesCard from '../../Components/Types.js/TypesCard';
+import { PokeTypesContainer } from '../../Components/PokeCard/PokecardStyle';
+import { MovesCard } from '../../Components/MovesCard/MovesCard';
+import pokebola from '../../assets/poke-background-datails.png'
 
 export default function PokemonDetailsPage() {
 
   const [PokemonDetails, setPokemonDetails] = useState(PokemonDetailsMock)
   const location = useLocation()
+
+  const context = useContext(PokemonsContext)
+  const {pokedex} = context
+
+  console.log(pokedex)
 
   useEffect(()=>{
     RequestPokemonDetails()
@@ -27,8 +37,8 @@ export default function PokemonDetailsPage() {
     return idPokemon
   }
 
-  const RequestPokemonDetails = async () => {
-    await axios
+  const RequestPokemonDetails =  () => {
+     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${getIdByURL()}`)
       .then((resp)=>{
         setPokemonDetails(resp.data)
@@ -49,17 +59,20 @@ export default function PokemonDetailsPage() {
 
 
  return (
-   <>
-   <h1>Detalhes do pokemon</h1>
-    <DetailsContainer>
-      <ImgBoxFront>
-      <img src={PokemonDetails.sprites.front_default}/>
-      </ImgBoxFront>
-      <ImgBoxBack>
-        <img src={PokemonDetails.sprites.back_default}/>
-      </ImgBoxBack>
+   <DetailsPage>
+    <TitleDetail>Detalhes</TitleDetail>
+    
+    <DetailsContainer color={returnTypes(PokemonDetails.types[0].type.name).color}>
+      <ImgDetail>
+        <ImgBox>
+          <ImagePokemons src={PokemonDetails.sprites.front_default}/>
+        </ImgBox>
+        <ImgBox>
+          <ImagePokemons src={PokemonDetails.sprites.back_default}/>
+        </ImgBox>
+      </ImgDetail>
       <BaseStatus>
-          <h2>Base Status</h2>
+          <h2>Base stats</h2>
           <p>{PokemonDetails.stats[0].stat.name.toUpperCase()}: {PokemonDetails.stats[0].base_stat}</p>
           <p>{PokemonDetails.stats[1].stat.name}: {PokemonDetails.stats[1].base_stat}</p>
           <p>{PokemonDetails.stats[2].stat.name}: {PokemonDetails.stats[2].base_stat}</p>
@@ -70,17 +83,20 @@ export default function PokemonDetailsPage() {
       </BaseStatus>
       <PokemonData>
         {PokemonDetails.id < 10 ? <p>#0{PokemonDetails.id}</p>:<p>#{PokemonDetails.id}</p>}
-        <p>{PokemonDetails.name}</p>
-        {PokemonDetails.types.map((type)=> <p>{type.type.name}</p>)}
+        <h1>{PokemonDetails.name}</h1>
+        <PokeTypesContainer>
+          {PokemonDetails.types && PokemonDetails.types.map((type) => <TypesCard name={type.type.name}/>)}
+        </PokeTypesContainer>
+        <Moves>
+          <h2>Moves:</h2>
+          {PokemonDetails.moves.slice(0, 4).map((move)=> <MovesCard name = {move.move.name}/>)}
+        </Moves>
       </PokemonData>
-      <Moves>
-        <h2>Moves:</h2>
-        {PokemonDetails.moves.slice(0, 4).map((move)=> <p>{move.move.name}</p>)}
-      </Moves>
-      <ImagePokemon>
-        <img src={PokemonDetails.sprites.other.home.front_default}/>
-      </ImagePokemon>
+      <ImagePokemonBox>
+        <ImagePokebola src={pokebola} alt="backgroud de pokebola"/>
+        <ImagePokemonBig src={PokemonDetails.sprites.other.home.front_default}/>
+      </ImagePokemonBox>
     </DetailsContainer>
-   </>
+   </DetailsPage>
   );
 }
